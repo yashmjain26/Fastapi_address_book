@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  web:
+    build: ./web
+    # env_file:
+    #   - ./web/.env
+    ports:
+      - 8000:8000
+    networks:
+      - address_book
+    volumes:
+      - ./database/database.db:/usr/src/app/web/database.db
+      - ./web:/usr/src/app/web
+    command: uvicorn main:app  --host 0.0.0.0 --reload
+networks:
+  address_book:
+    name: address_book
+    driver: bridge
